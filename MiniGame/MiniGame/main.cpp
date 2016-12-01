@@ -1,14 +1,131 @@
-#include <windows.h>
 #include <iostream>
-#include "KeyEvent.h"
+#include <string>
 #include <process.h>
+#include <windows.h>
+#include "KeyEvent.h"
 #include "Frame.h"
 #include "ExArray.h"
+#include <vector>
+#include <list>
+#include <map>
 using namespace std;
 
 
+class Word {
+private:
+	string word;
+public:
+	Word(string word)
+	{
+		this->word = word;
+	}
+	string getWord()
+	{
+		return this->word;
+	}
+
+};
 void main()
 {
+	map<char, list<Word>>m;
+	list<Word> aList;
+	list<Word> bList;
+
+	aList.push_back(Word("apple"));
+	aList.push_back(Word("avoid"));
+	aList.push_back(Word("appear"));
+
+	bList.push_back(Word("bread"));
+	bList.push_back(Word("bring"));
+	bList.push_back(Word("bow"));
+
+	m['a'] = aList;
+	m['b'] = bList;
+
+	map<char, list<Word>>::const_iterator iter = m.begin();
+
+	while (iter != m.end())
+	{
+		cout << iter->first << ":" << endl;
+
+		list<Word> temp = iter->second;
+		list<Word>::const_iterator iter_list = temp.begin();
+
+		while (iter_list != temp.end())
+		{
+			Word word = *iter_list;
+			cout << word.getWord() << ", ";
+			iter_list++;
+		}
+		cout << "\n===" << endl;
+		iter++;
+	}
+}
+/*
+map<string, int>m;
+m["seoul"] = 100;
+m["busan"] = 200;
+m["daegu"] = 120;
+
+cout << m["seoul"] << m["busan"] << m["daegu"] << endl;
+*/
+/*
+void dump(list<string> &i)
+{
+	list<string>::iterator iter = i.begin();
+
+	while (iter != i.end())
+	{
+		cout << *iter << endl;
+		iter++;
+	}
+}
+*/
+/*
+list<string> names;
+
+names.insert(names.begin(), "Konkuk");
+names.insert(names.end(), "University");
+names.insert(names.end(), "SCLab");
+names.insert(names.end(), "CSY");
+
+dump(names);
+cout << "=====" << endl;
+names.reverse();
+dump(names);
+*/
+	/*
+	vector<int> v;
+
+	v.push_back(10);	//뒤에 삽입
+	v.push_back(20);
+	v.push_back(30);
+	v.insert(v.begin(), 40); //앞에 삽입
+	v.insert(v.begin(), 50);
+
+	for (int i = 0; i < v.size(); i++)
+	{
+		cout << v[i] << endl;
+	}
+
+	cout << "Access Index at 1 :" << v.at(1) << endl;	//at 활용
+
+
+	v.erase(v.begin());		//삭제
+	v.erase(v.end() - 1);
+
+
+	vector<int>::iterator iter = v.begin();	//iter 가 맨 앞을 가리키고 있음
+	cout << "Access Index at 1 with iterator : " << iter[1] << endl;
+
+	while (iter != v.end())
+	{
+		cout << *iter << endl;
+		iter++;
+	}
+}
+	*/
+	/*
 	ExArray<int> arr1(3);
 	ExArray<char> arr2(4);
 	ExArray<double> arr3(5);
@@ -37,7 +154,7 @@ void main()
 	mySwap<ExArray<int>>(arr1, arr4);
 	arr1.printData();
 	arr4.printData();
-
+	*/
 	/*
 	try{
 	Frame *f1 = new Frame;
@@ -50,7 +167,6 @@ void main()
 	cout << "Error msg: " << msg << endl;
 	}
 	*/
-}
 
 /*
 class Game {
